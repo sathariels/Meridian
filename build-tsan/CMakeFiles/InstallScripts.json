@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/sathariels/Meridian/Meridian/build-tsan/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

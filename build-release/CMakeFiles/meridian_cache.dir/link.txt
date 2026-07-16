@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmeridian_cache.a CMakeFiles/meridian_cache.dir/src/cache/lru_cache.cpp.o CMakeFiles/meridian_cache.dir/src/cache/striped_cache.cpp.o
+/usr/bin/ranlib libmeridian_cache.a
