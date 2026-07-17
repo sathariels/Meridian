@@ -30,6 +30,25 @@ add_library(meridian_cache
 target_include_directories(meridian_cache PUBLIC src)
 target_link_libraries(meridian_cache PUBLIC Threads::Threads)
 
+# Event loop backend is chosen per platform behind the same interface.
+if(APPLE)
+    set(MERIDIAN_EVENT_LOOP_SRC src/net/kqueue_event_loop.cpp)
+else()
+    # epoll_event_loop.cpp lands in phase 8 (Linux/Docker validation).
+    set(MERIDIAN_EVENT_LOOP_SRC src/net/epoll_event_loop.cpp)
+endif()
+
+add_library(meridian_net
+    ${MERIDIAN_EVENT_LOOP_SRC}
+    src/net/tcp_server.cpp
+    src/server/command_handler.cpp
+)
+target_include_directories(meridian_net PUBLIC src)
+target_link_libraries(meridian_net PUBLIC meridian_cache)
+
+add_executable(meridian_server src/server/main.cpp)
+target_link_libraries(meridian_server PRIVATE meridian_net)
+
 add_executable(load_gen bench/load_gen.cpp)
 target_link_libraries(load_gen PRIVATE meridian_cache)
 
@@ -42,3 +61,11 @@ add_test(NAME lru_cache_test COMMAND lru_cache_test)
 add_executable(striped_cache_test tests/striped_cache_test.cpp)
 target_link_libraries(striped_cache_test PRIVATE meridian_cache)
 add_test(NAME striped_cache_test COMMAND striped_cache_test)
+
+add_executable(command_handler_test tests/command_handler_test.cpp)
+target_link_libraries(command_handler_test PRIVATE meridian_net)
+add_test(NAME command_handler_test COMMAND command_handler_test)
+
+add_executable(tcp_server_test tests/tcp_server_test.cpp)
+target_link_libraries(tcp_server_test PRIVATE meridian_net)
+add_test(NAME tcp_server_test COMMAND tcp_server_test)

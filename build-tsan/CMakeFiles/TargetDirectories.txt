@@ -1,7 +1,11 @@
 /Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/meridian_cache.dir
+/Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/meridian_net.dir
+/Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/meridian_server.dir
 /Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/load_gen.dir
 /Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/lru_cache_test.dir
 /Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/striped_cache_test.dir
+/Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/command_handler_test.dir
+/Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/tcp_server_test.dir
 /Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/test.dir
 /Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/edit_cache.dir
 /Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles/rebuild_cache.dir

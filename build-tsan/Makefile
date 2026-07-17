@@ -140,6 +140,32 @@ meridian_cache/fast:
 .PHONY : meridian_cache/fast
 
 #=============================================================================
+# Target rules for targets named meridian_net
+
+# Build rule for target.
+meridian_net: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 meridian_net
+.PHONY : meridian_net
+
+# fast build rule for target.
+meridian_net/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/build
+.PHONY : meridian_net/fast
+
+#=============================================================================
+# Target rules for targets named meridian_server
+
+# Build rule for target.
+meridian_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 meridian_server
+.PHONY : meridian_server
+
+# fast build rule for target.
+meridian_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_server.dir/build.make CMakeFiles/meridian_server.dir/build
+.PHONY : meridian_server/fast
+
+#=============================================================================
 # Target rules for targets named load_gen
 
 # Build rule for target.
@@ -177,6 +203,32 @@ striped_cache_test: cmake_check_build_system
 striped_cache_test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/striped_cache_test.dir/build.make CMakeFiles/striped_cache_test.dir/build
 .PHONY : striped_cache_test/fast
+
+#=============================================================================
+# Target rules for targets named command_handler_test
+
+# Build rule for target.
+command_handler_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 command_handler_test
+.PHONY : command_handler_test
+
+# fast build rule for target.
+command_handler_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/command_handler_test.dir/build.make CMakeFiles/command_handler_test.dir/build
+.PHONY : command_handler_test/fast
+
+#=============================================================================
+# Target rules for targets named tcp_server_test
+
+# Build rule for target.
+tcp_server_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tcp_server_test
+.PHONY : tcp_server_test
+
+# fast build rule for target.
+tcp_server_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcp_server_test.dir/build.make CMakeFiles/tcp_server_test.dir/build
+.PHONY : tcp_server_test/fast
 
 bench/load_gen.o: bench/load_gen.cpp.o
 .PHONY : bench/load_gen.o
@@ -250,6 +302,126 @@ src/cache/striped_cache.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cache.dir/build.make CMakeFiles/meridian_cache.dir/src/cache/striped_cache.cpp.s
 .PHONY : src/cache/striped_cache.cpp.s
 
+src/net/kqueue_event_loop.o: src/net/kqueue_event_loop.cpp.o
+.PHONY : src/net/kqueue_event_loop.o
+
+# target to build an object file
+src/net/kqueue_event_loop.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/net/kqueue_event_loop.cpp.o
+.PHONY : src/net/kqueue_event_loop.cpp.o
+
+src/net/kqueue_event_loop.i: src/net/kqueue_event_loop.cpp.i
+.PHONY : src/net/kqueue_event_loop.i
+
+# target to preprocess a source file
+src/net/kqueue_event_loop.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/net/kqueue_event_loop.cpp.i
+.PHONY : src/net/kqueue_event_loop.cpp.i
+
+src/net/kqueue_event_loop.s: src/net/kqueue_event_loop.cpp.s
+.PHONY : src/net/kqueue_event_loop.s
+
+# target to generate assembly for a file
+src/net/kqueue_event_loop.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/net/kqueue_event_loop.cpp.s
+.PHONY : src/net/kqueue_event_loop.cpp.s
+
+src/net/tcp_server.o: src/net/tcp_server.cpp.o
+.PHONY : src/net/tcp_server.o
+
+# target to build an object file
+src/net/tcp_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/net/tcp_server.cpp.o
+.PHONY : src/net/tcp_server.cpp.o
+
+src/net/tcp_server.i: src/net/tcp_server.cpp.i
+.PHONY : src/net/tcp_server.i
+
+# target to preprocess a source file
+src/net/tcp_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/net/tcp_server.cpp.i
+.PHONY : src/net/tcp_server.cpp.i
+
+src/net/tcp_server.s: src/net/tcp_server.cpp.s
+.PHONY : src/net/tcp_server.s
+
+# target to generate assembly for a file
+src/net/tcp_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/net/tcp_server.cpp.s
+.PHONY : src/net/tcp_server.cpp.s
+
+src/server/command_handler.o: src/server/command_handler.cpp.o
+.PHONY : src/server/command_handler.o
+
+# target to build an object file
+src/server/command_handler.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/server/command_handler.cpp.o
+.PHONY : src/server/command_handler.cpp.o
+
+src/server/command_handler.i: src/server/command_handler.cpp.i
+.PHONY : src/server/command_handler.i
+
+# target to preprocess a source file
+src/server/command_handler.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/server/command_handler.cpp.i
+.PHONY : src/server/command_handler.cpp.i
+
+src/server/command_handler.s: src/server/command_handler.cpp.s
+.PHONY : src/server/command_handler.s
+
+# target to generate assembly for a file
+src/server/command_handler.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/server/command_handler.cpp.s
+.PHONY : src/server/command_handler.cpp.s
+
+src/server/main.o: src/server/main.cpp.o
+.PHONY : src/server/main.o
+
+# target to build an object file
+src/server/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_server.dir/build.make CMakeFiles/meridian_server.dir/src/server/main.cpp.o
+.PHONY : src/server/main.cpp.o
+
+src/server/main.i: src/server/main.cpp.i
+.PHONY : src/server/main.i
+
+# target to preprocess a source file
+src/server/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_server.dir/build.make CMakeFiles/meridian_server.dir/src/server/main.cpp.i
+.PHONY : src/server/main.cpp.i
+
+src/server/main.s: src/server/main.cpp.s
+.PHONY : src/server/main.s
+
+# target to generate assembly for a file
+src/server/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_server.dir/build.make CMakeFiles/meridian_server.dir/src/server/main.cpp.s
+.PHONY : src/server/main.cpp.s
+
+tests/command_handler_test.o: tests/command_handler_test.cpp.o
+.PHONY : tests/command_handler_test.o
+
+# target to build an object file
+tests/command_handler_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/command_handler_test.dir/build.make CMakeFiles/command_handler_test.dir/tests/command_handler_test.cpp.o
+.PHONY : tests/command_handler_test.cpp.o
+
+tests/command_handler_test.i: tests/command_handler_test.cpp.i
+.PHONY : tests/command_handler_test.i
+
+# target to preprocess a source file
+tests/command_handler_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/command_handler_test.dir/build.make CMakeFiles/command_handler_test.dir/tests/command_handler_test.cpp.i
+.PHONY : tests/command_handler_test.cpp.i
+
+tests/command_handler_test.s: tests/command_handler_test.cpp.s
+.PHONY : tests/command_handler_test.s
+
+# target to generate assembly for a file
+tests/command_handler_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/command_handler_test.dir/build.make CMakeFiles/command_handler_test.dir/tests/command_handler_test.cpp.s
+.PHONY : tests/command_handler_test.cpp.s
+
 tests/lru_cache_test.o: tests/lru_cache_test.cpp.o
 .PHONY : tests/lru_cache_test.o
 
@@ -298,6 +470,30 @@ tests/striped_cache_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/striped_cache_test.dir/build.make CMakeFiles/striped_cache_test.dir/tests/striped_cache_test.cpp.s
 .PHONY : tests/striped_cache_test.cpp.s
 
+tests/tcp_server_test.o: tests/tcp_server_test.cpp.o
+.PHONY : tests/tcp_server_test.o
+
+# target to build an object file
+tests/tcp_server_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcp_server_test.dir/build.make CMakeFiles/tcp_server_test.dir/tests/tcp_server_test.cpp.o
+.PHONY : tests/tcp_server_test.cpp.o
+
+tests/tcp_server_test.i: tests/tcp_server_test.cpp.i
+.PHONY : tests/tcp_server_test.i
+
+# target to preprocess a source file
+tests/tcp_server_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcp_server_test.dir/build.make CMakeFiles/tcp_server_test.dir/tests/tcp_server_test.cpp.i
+.PHONY : tests/tcp_server_test.cpp.i
+
+tests/tcp_server_test.s: tests/tcp_server_test.cpp.s
+.PHONY : tests/tcp_server_test.s
+
+# target to generate assembly for a file
+tests/tcp_server_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcp_server_test.dir/build.make CMakeFiles/tcp_server_test.dir/tests/tcp_server_test.cpp.s
+.PHONY : tests/tcp_server_test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -307,10 +503,14 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... command_handler_test"
 	@echo "... load_gen"
 	@echo "... lru_cache_test"
 	@echo "... meridian_cache"
+	@echo "... meridian_net"
+	@echo "... meridian_server"
 	@echo "... striped_cache_test"
+	@echo "... tcp_server_test"
 	@echo "... bench/load_gen.o"
 	@echo "... bench/load_gen.i"
 	@echo "... bench/load_gen.s"
@@ -320,12 +520,30 @@ help:
 	@echo "... src/cache/striped_cache.o"
 	@echo "... src/cache/striped_cache.i"
 	@echo "... src/cache/striped_cache.s"
+	@echo "... src/net/kqueue_event_loop.o"
+	@echo "... src/net/kqueue_event_loop.i"
+	@echo "... src/net/kqueue_event_loop.s"
+	@echo "... src/net/tcp_server.o"
+	@echo "... src/net/tcp_server.i"
+	@echo "... src/net/tcp_server.s"
+	@echo "... src/server/command_handler.o"
+	@echo "... src/server/command_handler.i"
+	@echo "... src/server/command_handler.s"
+	@echo "... src/server/main.o"
+	@echo "... src/server/main.i"
+	@echo "... src/server/main.s"
+	@echo "... tests/command_handler_test.o"
+	@echo "... tests/command_handler_test.i"
+	@echo "... tests/command_handler_test.s"
 	@echo "... tests/lru_cache_test.o"
 	@echo "... tests/lru_cache_test.i"
 	@echo "... tests/lru_cache_test.s"
 	@echo "... tests/striped_cache_test.o"
 	@echo "... tests/striped_cache_test.i"
 	@echo "... tests/striped_cache_test.s"
+	@echo "... tests/tcp_server_test.o"
+	@echo "... tests/tcp_server_test.i"
+	@echo "... tests/tcp_server_test.s"
 .PHONY : help
 
 
