@@ -96,7 +96,9 @@ command_handler_test_EXTERNAL_OBJECTS =
 command_handler_test: CMakeFiles/command_handler_test.dir/tests/command_handler_test.cpp.o
 command_handler_test: CMakeFiles/command_handler_test.dir/build.make
 command_handler_test: libmeridian_net.a
+command_handler_test: libmeridian_cluster.a
 command_handler_test: libmeridian_cache.a
+command_handler_test: libmeridian_leaderboard.a
 command_handler_test: CMakeFiles/command_handler_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable command_handler_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/command_handler_test.dir/link.txt --verbose=$(VERBOSE)

@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmeridian_leaderboard.a CMakeFiles/meridian_leaderboard.dir/src/leaderboard/leaderboard.cpp.o
+/usr/bin/ranlib libmeridian_leaderboard.a

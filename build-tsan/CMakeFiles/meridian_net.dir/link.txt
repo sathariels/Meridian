@@ -1,2 +1,2 @@
-/usr/bin/ar qc libmeridian_net.a CMakeFiles/meridian_net.dir/src/net/kqueue_event_loop.cpp.o CMakeFiles/meridian_net.dir/src/net/tcp_server.cpp.o CMakeFiles/meridian_net.dir/src/server/command_handler.cpp.o
+/usr/bin/ar qc libmeridian_net.a CMakeFiles/meridian_net.dir/src/net/kqueue_event_loop.cpp.o CMakeFiles/meridian_net.dir/src/net/tcp_server.cpp.o CMakeFiles/meridian_net.dir/src/replication/replica_link.cpp.o CMakeFiles/meridian_net.dir/src/replication/wal.cpp.o CMakeFiles/meridian_net.dir/src/server/command_handler.cpp.o
 /usr/bin/ranlib libmeridian_net.a

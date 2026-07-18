@@ -140,6 +140,32 @@ meridian_cache/fast:
 .PHONY : meridian_cache/fast
 
 #=============================================================================
+# Target rules for targets named meridian_cluster
+
+# Build rule for target.
+meridian_cluster: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 meridian_cluster
+.PHONY : meridian_cluster
+
+# fast build rule for target.
+meridian_cluster/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cluster.dir/build.make CMakeFiles/meridian_cluster.dir/build
+.PHONY : meridian_cluster/fast
+
+#=============================================================================
+# Target rules for targets named meridian_leaderboard
+
+# Build rule for target.
+meridian_leaderboard: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 meridian_leaderboard
+.PHONY : meridian_leaderboard
+
+# fast build rule for target.
+meridian_leaderboard/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_leaderboard.dir/build.make CMakeFiles/meridian_leaderboard.dir/build
+.PHONY : meridian_leaderboard/fast
+
+#=============================================================================
 # Target rules for targets named meridian_net
 
 # Build rule for target.
@@ -230,6 +256,58 @@ tcp_server_test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcp_server_test.dir/build.make CMakeFiles/tcp_server_test.dir/build
 .PHONY : tcp_server_test/fast
 
+#=============================================================================
+# Target rules for targets named hash_ring_test
+
+# Build rule for target.
+hash_ring_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hash_ring_test
+.PHONY : hash_ring_test
+
+# fast build rule for target.
+hash_ring_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hash_ring_test.dir/build.make CMakeFiles/hash_ring_test.dir/build
+.PHONY : hash_ring_test/fast
+
+#=============================================================================
+# Target rules for targets named shard_router_test
+
+# Build rule for target.
+shard_router_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 shard_router_test
+.PHONY : shard_router_test
+
+# fast build rule for target.
+shard_router_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/shard_router_test.dir/build.make CMakeFiles/shard_router_test.dir/build
+.PHONY : shard_router_test/fast
+
+#=============================================================================
+# Target rules for targets named leaderboard_test
+
+# Build rule for target.
+leaderboard_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 leaderboard_test
+.PHONY : leaderboard_test
+
+# fast build rule for target.
+leaderboard_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/leaderboard_test.dir/build.make CMakeFiles/leaderboard_test.dir/build
+.PHONY : leaderboard_test/fast
+
+#=============================================================================
+# Target rules for targets named replication_test
+
+# Build rule for target.
+replication_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 replication_test
+.PHONY : replication_test
+
+# fast build rule for target.
+replication_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replication_test.dir/build.make CMakeFiles/replication_test.dir/build
+.PHONY : replication_test/fast
+
 bench/load_gen.o: bench/load_gen.cpp.o
 .PHONY : bench/load_gen.o
 
@@ -302,6 +380,78 @@ src/cache/striped_cache.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cache.dir/build.make CMakeFiles/meridian_cache.dir/src/cache/striped_cache.cpp.s
 .PHONY : src/cache/striped_cache.cpp.s
 
+src/cluster/hash_ring.o: src/cluster/hash_ring.cpp.o
+.PHONY : src/cluster/hash_ring.o
+
+# target to build an object file
+src/cluster/hash_ring.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cluster.dir/build.make CMakeFiles/meridian_cluster.dir/src/cluster/hash_ring.cpp.o
+.PHONY : src/cluster/hash_ring.cpp.o
+
+src/cluster/hash_ring.i: src/cluster/hash_ring.cpp.i
+.PHONY : src/cluster/hash_ring.i
+
+# target to preprocess a source file
+src/cluster/hash_ring.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cluster.dir/build.make CMakeFiles/meridian_cluster.dir/src/cluster/hash_ring.cpp.i
+.PHONY : src/cluster/hash_ring.cpp.i
+
+src/cluster/hash_ring.s: src/cluster/hash_ring.cpp.s
+.PHONY : src/cluster/hash_ring.s
+
+# target to generate assembly for a file
+src/cluster/hash_ring.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cluster.dir/build.make CMakeFiles/meridian_cluster.dir/src/cluster/hash_ring.cpp.s
+.PHONY : src/cluster/hash_ring.cpp.s
+
+src/cluster/shard_router.o: src/cluster/shard_router.cpp.o
+.PHONY : src/cluster/shard_router.o
+
+# target to build an object file
+src/cluster/shard_router.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cluster.dir/build.make CMakeFiles/meridian_cluster.dir/src/cluster/shard_router.cpp.o
+.PHONY : src/cluster/shard_router.cpp.o
+
+src/cluster/shard_router.i: src/cluster/shard_router.cpp.i
+.PHONY : src/cluster/shard_router.i
+
+# target to preprocess a source file
+src/cluster/shard_router.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cluster.dir/build.make CMakeFiles/meridian_cluster.dir/src/cluster/shard_router.cpp.i
+.PHONY : src/cluster/shard_router.cpp.i
+
+src/cluster/shard_router.s: src/cluster/shard_router.cpp.s
+.PHONY : src/cluster/shard_router.s
+
+# target to generate assembly for a file
+src/cluster/shard_router.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_cluster.dir/build.make CMakeFiles/meridian_cluster.dir/src/cluster/shard_router.cpp.s
+.PHONY : src/cluster/shard_router.cpp.s
+
+src/leaderboard/leaderboard.o: src/leaderboard/leaderboard.cpp.o
+.PHONY : src/leaderboard/leaderboard.o
+
+# target to build an object file
+src/leaderboard/leaderboard.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_leaderboard.dir/build.make CMakeFiles/meridian_leaderboard.dir/src/leaderboard/leaderboard.cpp.o
+.PHONY : src/leaderboard/leaderboard.cpp.o
+
+src/leaderboard/leaderboard.i: src/leaderboard/leaderboard.cpp.i
+.PHONY : src/leaderboard/leaderboard.i
+
+# target to preprocess a source file
+src/leaderboard/leaderboard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_leaderboard.dir/build.make CMakeFiles/meridian_leaderboard.dir/src/leaderboard/leaderboard.cpp.i
+.PHONY : src/leaderboard/leaderboard.cpp.i
+
+src/leaderboard/leaderboard.s: src/leaderboard/leaderboard.cpp.s
+.PHONY : src/leaderboard/leaderboard.s
+
+# target to generate assembly for a file
+src/leaderboard/leaderboard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_leaderboard.dir/build.make CMakeFiles/meridian_leaderboard.dir/src/leaderboard/leaderboard.cpp.s
+.PHONY : src/leaderboard/leaderboard.cpp.s
+
 src/net/kqueue_event_loop.o: src/net/kqueue_event_loop.cpp.o
 .PHONY : src/net/kqueue_event_loop.o
 
@@ -349,6 +499,54 @@ src/net/tcp_server.s: src/net/tcp_server.cpp.s
 src/net/tcp_server.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/net/tcp_server.cpp.s
 .PHONY : src/net/tcp_server.cpp.s
+
+src/replication/replica_link.o: src/replication/replica_link.cpp.o
+.PHONY : src/replication/replica_link.o
+
+# target to build an object file
+src/replication/replica_link.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/replication/replica_link.cpp.o
+.PHONY : src/replication/replica_link.cpp.o
+
+src/replication/replica_link.i: src/replication/replica_link.cpp.i
+.PHONY : src/replication/replica_link.i
+
+# target to preprocess a source file
+src/replication/replica_link.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/replication/replica_link.cpp.i
+.PHONY : src/replication/replica_link.cpp.i
+
+src/replication/replica_link.s: src/replication/replica_link.cpp.s
+.PHONY : src/replication/replica_link.s
+
+# target to generate assembly for a file
+src/replication/replica_link.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/replication/replica_link.cpp.s
+.PHONY : src/replication/replica_link.cpp.s
+
+src/replication/wal.o: src/replication/wal.cpp.o
+.PHONY : src/replication/wal.o
+
+# target to build an object file
+src/replication/wal.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/replication/wal.cpp.o
+.PHONY : src/replication/wal.cpp.o
+
+src/replication/wal.i: src/replication/wal.cpp.i
+.PHONY : src/replication/wal.i
+
+# target to preprocess a source file
+src/replication/wal.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/replication/wal.cpp.i
+.PHONY : src/replication/wal.cpp.i
+
+src/replication/wal.s: src/replication/wal.cpp.s
+.PHONY : src/replication/wal.s
+
+# target to generate assembly for a file
+src/replication/wal.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/meridian_net.dir/build.make CMakeFiles/meridian_net.dir/src/replication/wal.cpp.s
+.PHONY : src/replication/wal.cpp.s
 
 src/server/command_handler.o: src/server/command_handler.cpp.o
 .PHONY : src/server/command_handler.o
@@ -422,6 +620,54 @@ tests/command_handler_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/command_handler_test.dir/build.make CMakeFiles/command_handler_test.dir/tests/command_handler_test.cpp.s
 .PHONY : tests/command_handler_test.cpp.s
 
+tests/hash_ring_test.o: tests/hash_ring_test.cpp.o
+.PHONY : tests/hash_ring_test.o
+
+# target to build an object file
+tests/hash_ring_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hash_ring_test.dir/build.make CMakeFiles/hash_ring_test.dir/tests/hash_ring_test.cpp.o
+.PHONY : tests/hash_ring_test.cpp.o
+
+tests/hash_ring_test.i: tests/hash_ring_test.cpp.i
+.PHONY : tests/hash_ring_test.i
+
+# target to preprocess a source file
+tests/hash_ring_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hash_ring_test.dir/build.make CMakeFiles/hash_ring_test.dir/tests/hash_ring_test.cpp.i
+.PHONY : tests/hash_ring_test.cpp.i
+
+tests/hash_ring_test.s: tests/hash_ring_test.cpp.s
+.PHONY : tests/hash_ring_test.s
+
+# target to generate assembly for a file
+tests/hash_ring_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hash_ring_test.dir/build.make CMakeFiles/hash_ring_test.dir/tests/hash_ring_test.cpp.s
+.PHONY : tests/hash_ring_test.cpp.s
+
+tests/leaderboard_test.o: tests/leaderboard_test.cpp.o
+.PHONY : tests/leaderboard_test.o
+
+# target to build an object file
+tests/leaderboard_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/leaderboard_test.dir/build.make CMakeFiles/leaderboard_test.dir/tests/leaderboard_test.cpp.o
+.PHONY : tests/leaderboard_test.cpp.o
+
+tests/leaderboard_test.i: tests/leaderboard_test.cpp.i
+.PHONY : tests/leaderboard_test.i
+
+# target to preprocess a source file
+tests/leaderboard_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/leaderboard_test.dir/build.make CMakeFiles/leaderboard_test.dir/tests/leaderboard_test.cpp.i
+.PHONY : tests/leaderboard_test.cpp.i
+
+tests/leaderboard_test.s: tests/leaderboard_test.cpp.s
+.PHONY : tests/leaderboard_test.s
+
+# target to generate assembly for a file
+tests/leaderboard_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/leaderboard_test.dir/build.make CMakeFiles/leaderboard_test.dir/tests/leaderboard_test.cpp.s
+.PHONY : tests/leaderboard_test.cpp.s
+
 tests/lru_cache_test.o: tests/lru_cache_test.cpp.o
 .PHONY : tests/lru_cache_test.o
 
@@ -445,6 +691,54 @@ tests/lru_cache_test.s: tests/lru_cache_test.cpp.s
 tests/lru_cache_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lru_cache_test.dir/build.make CMakeFiles/lru_cache_test.dir/tests/lru_cache_test.cpp.s
 .PHONY : tests/lru_cache_test.cpp.s
+
+tests/replication_test.o: tests/replication_test.cpp.o
+.PHONY : tests/replication_test.o
+
+# target to build an object file
+tests/replication_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replication_test.dir/build.make CMakeFiles/replication_test.dir/tests/replication_test.cpp.o
+.PHONY : tests/replication_test.cpp.o
+
+tests/replication_test.i: tests/replication_test.cpp.i
+.PHONY : tests/replication_test.i
+
+# target to preprocess a source file
+tests/replication_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replication_test.dir/build.make CMakeFiles/replication_test.dir/tests/replication_test.cpp.i
+.PHONY : tests/replication_test.cpp.i
+
+tests/replication_test.s: tests/replication_test.cpp.s
+.PHONY : tests/replication_test.s
+
+# target to generate assembly for a file
+tests/replication_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replication_test.dir/build.make CMakeFiles/replication_test.dir/tests/replication_test.cpp.s
+.PHONY : tests/replication_test.cpp.s
+
+tests/shard_router_test.o: tests/shard_router_test.cpp.o
+.PHONY : tests/shard_router_test.o
+
+# target to build an object file
+tests/shard_router_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/shard_router_test.dir/build.make CMakeFiles/shard_router_test.dir/tests/shard_router_test.cpp.o
+.PHONY : tests/shard_router_test.cpp.o
+
+tests/shard_router_test.i: tests/shard_router_test.cpp.i
+.PHONY : tests/shard_router_test.i
+
+# target to preprocess a source file
+tests/shard_router_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/shard_router_test.dir/build.make CMakeFiles/shard_router_test.dir/tests/shard_router_test.cpp.i
+.PHONY : tests/shard_router_test.cpp.i
+
+tests/shard_router_test.s: tests/shard_router_test.cpp.s
+.PHONY : tests/shard_router_test.s
+
+# target to generate assembly for a file
+tests/shard_router_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/shard_router_test.dir/build.make CMakeFiles/shard_router_test.dir/tests/shard_router_test.cpp.s
+.PHONY : tests/shard_router_test.cpp.s
 
 tests/striped_cache_test.o: tests/striped_cache_test.cpp.o
 .PHONY : tests/striped_cache_test.o
@@ -504,11 +798,17 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... command_handler_test"
+	@echo "... hash_ring_test"
+	@echo "... leaderboard_test"
 	@echo "... load_gen"
 	@echo "... lru_cache_test"
 	@echo "... meridian_cache"
+	@echo "... meridian_cluster"
+	@echo "... meridian_leaderboard"
 	@echo "... meridian_net"
 	@echo "... meridian_server"
+	@echo "... replication_test"
+	@echo "... shard_router_test"
 	@echo "... striped_cache_test"
 	@echo "... tcp_server_test"
 	@echo "... bench/load_gen.o"
@@ -520,12 +820,27 @@ help:
 	@echo "... src/cache/striped_cache.o"
 	@echo "... src/cache/striped_cache.i"
 	@echo "... src/cache/striped_cache.s"
+	@echo "... src/cluster/hash_ring.o"
+	@echo "... src/cluster/hash_ring.i"
+	@echo "... src/cluster/hash_ring.s"
+	@echo "... src/cluster/shard_router.o"
+	@echo "... src/cluster/shard_router.i"
+	@echo "... src/cluster/shard_router.s"
+	@echo "... src/leaderboard/leaderboard.o"
+	@echo "... src/leaderboard/leaderboard.i"
+	@echo "... src/leaderboard/leaderboard.s"
 	@echo "... src/net/kqueue_event_loop.o"
 	@echo "... src/net/kqueue_event_loop.i"
 	@echo "... src/net/kqueue_event_loop.s"
 	@echo "... src/net/tcp_server.o"
 	@echo "... src/net/tcp_server.i"
 	@echo "... src/net/tcp_server.s"
+	@echo "... src/replication/replica_link.o"
+	@echo "... src/replication/replica_link.i"
+	@echo "... src/replication/replica_link.s"
+	@echo "... src/replication/wal.o"
+	@echo "... src/replication/wal.i"
+	@echo "... src/replication/wal.s"
 	@echo "... src/server/command_handler.o"
 	@echo "... src/server/command_handler.i"
 	@echo "... src/server/command_handler.s"
@@ -535,9 +850,21 @@ help:
 	@echo "... tests/command_handler_test.o"
 	@echo "... tests/command_handler_test.i"
 	@echo "... tests/command_handler_test.s"
+	@echo "... tests/hash_ring_test.o"
+	@echo "... tests/hash_ring_test.i"
+	@echo "... tests/hash_ring_test.s"
+	@echo "... tests/leaderboard_test.o"
+	@echo "... tests/leaderboard_test.i"
+	@echo "... tests/leaderboard_test.s"
 	@echo "... tests/lru_cache_test.o"
 	@echo "... tests/lru_cache_test.i"
 	@echo "... tests/lru_cache_test.s"
+	@echo "... tests/replication_test.o"
+	@echo "... tests/replication_test.i"
+	@echo "... tests/replication_test.s"
+	@echo "... tests/shard_router_test.o"
+	@echo "... tests/shard_router_test.i"
+	@echo "... tests/shard_router_test.s"
 	@echo "... tests/striped_cache_test.o"
 	@echo "... tests/striped_cache_test.i"
 	@echo "... tests/striped_cache_test.s"

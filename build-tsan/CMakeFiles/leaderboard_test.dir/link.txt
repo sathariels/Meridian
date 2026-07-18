@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=thread CMakeFiles/leaderboard_test.dir/tests/leaderboard_test.cpp.o -o leaderboard_test  libmeridian_net.a libmeridian_cluster.a libmeridian_cache.a libmeridian_leaderboard.a

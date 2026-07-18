@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmeridian_cluster.a CMakeFiles/meridian_cluster.dir/src/cluster/hash_ring.cpp.o CMakeFiles/meridian_cluster.dir/src/cluster/shard_router.cpp.o
+/usr/bin/ranlib libmeridian_cluster.a

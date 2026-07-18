@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+#include "cache/kv_store.h"
 #include "cache/lru_cache.h"
 
 namespace meridian {
@@ -26,7 +27,7 @@ namespace meridian {
 //  - Capacity is split evenly across stripes, so a pathological workload
 //    that hammers one stripe can evict from it while others sit half-empty.
 //    The hash mixing below makes that unlikely for real key sets.
-class StripedCache {
+class StripedCache : public KvStore {
 public:
     // total_capacity is divided across stripes (rounded up, so the true
     // ceiling can exceed total_capacity by up to num_stripes-1 entries).
@@ -36,16 +37,17 @@ public:
     StripedCache(const StripedCache&) = delete;
     StripedCache& operator=(const StripedCache&) = delete;
 
+    // ttl_ms default lives here, not on KvStore — see the note there.
     void put(const std::string& key, const std::string& value,
-             int64_t ttl_ms = 0);
-    std::optional<std::string> get(const std::string& key);
-    bool erase(const std::string& key);
-    bool contains(const std::string& key) const;
+             int64_t ttl_ms = 0) override;
+    std::optional<std::string> get(const std::string& key) override;
+    bool erase(const std::string& key) override;
+    bool contains(const std::string& key) const override;
 
     // Sums stripe sizes, locking one stripe at a time — a consistent
     // snapshot of each stripe but not of the whole cache. Fine for stats,
     // not for invariant checks while writers are running.
-    std::size_t size() const;
+    std::size_t size() const override;
 
     std::size_t stripe_count() const { return stripes_.size(); }
 

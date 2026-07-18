@@ -1,1 +1,1 @@
-/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=thread CMakeFiles/command_handler_test.dir/tests/command_handler_test.cpp.o -o command_handler_test  libmeridian_net.a libmeridian_cache.a
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=thread CMakeFiles/command_handler_test.dir/tests/command_handler_test.cpp.o -o command_handler_test  libmeridian_net.a libmeridian_cluster.a libmeridian_cache.a libmeridian_leaderboard.a

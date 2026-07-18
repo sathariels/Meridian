@@ -17,9 +17,14 @@ namespace meridian {
 // door open for multiple loop threads later.)
 class TcpServer {
 public:
-    // Called once per complete input line (without the trailing newline);
-    // the returned string is sent back followed by '\n'.
-    using LineHandler = std::function<std::string(const std::string&)>;
+    // Called once per complete input line (without the trailing newline).
+    // client_id identifies the connection (it's the fd, but treat it as
+    // opaque — valid for push() until on_disconnect fires for it). The
+    // returned string is sent back followed by '\n'; return "" to send
+    // nothing (a connection being converted to a push stream, e.g. SYNC).
+    using LineHandler =
+        std::function<std::string(int client_id, const std::string&)>;
+    using DisconnectHandler = std::function<void(int client_id)>;
 
     // port 0 = let the OS pick (tests use this); the real port is
     // available from port() after start().
@@ -36,6 +41,19 @@ public:
 
     uint16_t port() const { return port_; }
     std::size_t connection_count() const { return conns_.size(); }
+
+    // Queue raw bytes (caller supplies newlines) to a live connection,
+    // outside the request/response cycle — how the leader streams log
+    // entries to replicas. Unknown/closed ids are ignored. Loop thread
+    // only. May close the connection on write error, which fires the
+    // disconnect handler reentrantly — callers iterating a set of ids
+    // must iterate a copy.
+    void push(int client_id, const std::string& data);
+
+    // Called after a live connection dies (peer hangup or write error;
+    // not during server teardown) — the hook that lets the replication
+    // layer drop dead replicas.
+    void set_disconnect_handler(DisconnectHandler on_disconnect);
 
 private:
     struct Connection {
@@ -63,6 +81,7 @@ private:
     std::string host_;
     uint16_t port_;
     LineHandler on_line_;
+    DisconnectHandler on_disconnect_;
     int listen_fd_ = -1;
     std::unordered_map<int, Connection> conns_;
 };

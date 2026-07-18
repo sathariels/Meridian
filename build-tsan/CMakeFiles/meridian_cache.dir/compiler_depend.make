@@ -1918,11 +1918,15 @@ CMakeFiles/meridian_cache.dir/src/cache/striped_cache.cpp.o: /Users/sathariels/M
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdarg.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/16/include/stdint.h \
+  /Users/sathariels/Meridian/Meridian/src/cache/kv_store.h \
   /Users/sathariels/Meridian/Meridian/src/cache/lru_cache.h \
-  /Users/sathariels/Meridian/Meridian/src/cache/striped_cache.h
+  /Users/sathariels/Meridian/Meridian/src/cache/striped_cache.h \
+  /Users/sathariels/Meridian/Meridian/src/common/hash.h
 
 
 /Users/sathariels/Meridian/Meridian/src/cache/striped_cache.h:
+
+/Users/sathariels/Meridian/Meridian/src/cache/kv_store.h:
 
 /Users/sathariels/Meridian/Meridian/src/cache/striped_cache.cpp:
 
@@ -3713,6 +3717,8 @@ CMakeFiles/meridian_cache.dir/src/cache/striped_cache.cpp.o: /Users/sathariels/M
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/set_symmetric_difference.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__concepts/relation.h:
+
+/Users/sathariels/Meridian/Meridian/src/common/hash.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/is_heap.h:
 

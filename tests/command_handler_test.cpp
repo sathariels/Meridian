@@ -3,6 +3,8 @@
 
 #include "server/command_handler.h"
 
+#include "cache/striped_cache.h"
+
 #include <cassert>
 #include <cstdint>
 #include <iostream>

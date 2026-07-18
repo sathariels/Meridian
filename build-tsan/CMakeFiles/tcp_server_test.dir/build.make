@@ -96,7 +96,9 @@ tcp_server_test_EXTERNAL_OBJECTS =
 tcp_server_test: CMakeFiles/tcp_server_test.dir/tests/tcp_server_test.cpp.o
 tcp_server_test: CMakeFiles/tcp_server_test.dir/build.make
 tcp_server_test: libmeridian_net.a
+tcp_server_test: libmeridian_cluster.a
 tcp_server_test: libmeridian_cache.a
+tcp_server_test: libmeridian_leaderboard.a
 tcp_server_test: CMakeFiles/tcp_server_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable tcp_server_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tcp_server_test.dir/link.txt --verbose=$(VERBOSE)

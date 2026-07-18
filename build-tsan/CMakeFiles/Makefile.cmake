@@ -56,6 +56,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/meridian_cache.dir/DependInfo.cmake"
+  "CMakeFiles/meridian_cluster.dir/DependInfo.cmake"
+  "CMakeFiles/meridian_leaderboard.dir/DependInfo.cmake"
   "CMakeFiles/meridian_net.dir/DependInfo.cmake"
   "CMakeFiles/meridian_server.dir/DependInfo.cmake"
   "CMakeFiles/load_gen.dir/DependInfo.cmake"
@@ -63,4 +65,8 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/striped_cache_test.dir/DependInfo.cmake"
   "CMakeFiles/command_handler_test.dir/DependInfo.cmake"
   "CMakeFiles/tcp_server_test.dir/DependInfo.cmake"
+  "CMakeFiles/hash_ring_test.dir/DependInfo.cmake"
+  "CMakeFiles/shard_router_test.dir/DependInfo.cmake"
+  "CMakeFiles/leaderboard_test.dir/DependInfo.cmake"
+  "CMakeFiles/replication_test.dir/DependInfo.cmake"
   )

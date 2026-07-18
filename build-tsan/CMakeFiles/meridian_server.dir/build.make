@@ -96,7 +96,9 @@ meridian_server_EXTERNAL_OBJECTS =
 meridian_server: CMakeFiles/meridian_server.dir/src/server/main.cpp.o
 meridian_server: CMakeFiles/meridian_server.dir/build.make
 meridian_server: libmeridian_net.a
+meridian_server: libmeridian_cluster.a
 meridian_server: libmeridian_cache.a
+meridian_server: libmeridian_leaderboard.a
 meridian_server: CMakeFiles/meridian_server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sathariels/Meridian/Meridian/build-tsan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable meridian_server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/meridian_server.dir/link.txt --verbose=$(VERBOSE)

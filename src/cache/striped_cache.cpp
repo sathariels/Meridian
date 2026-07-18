@@ -3,27 +3,16 @@
 #include <cassert>
 #include <functional>
 
-namespace meridian {
+#include "common/hash.h"
 
-namespace {
-
-// splitmix64 finalizer. std::hash<std::string> is decent, but we take its
-// result % num_stripes for stripe selection while the stripe's inner
+// Stripe selection remixes the hash (mix64) because we take
+// std::hash % num_stripes for the stripe while the stripe's inner
 // unordered_map ALSO buckets by (same hash) % bucket_count. Without
 // remixing, every key landing in stripe k shares the property
-// hash ≡ k (mod num_stripes), which correlates with the inner map's bucket
-// choice and can cluster keys into few buckets. Remixing decorrelates the
-// two uses of the hash.
-uint64_t mix64(uint64_t x) {
-    x ^= x >> 30;
-    x *= 0xbf58476d1ce4e5b9ULL;
-    x ^= x >> 27;
-    x *= 0x94d049bb133111ebULL;
-    x ^= x >> 31;
-    return x;
-}
+// hash ≡ k (mod num_stripes), which correlates with the inner map's
+// bucket choice and can cluster keys into few buckets.
 
-}  // namespace
+namespace meridian {
 
 StripedCache::StripedCache(std::size_t total_capacity,
                            std::size_t num_stripes, ClockFn clock) {

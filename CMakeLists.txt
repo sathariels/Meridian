@@ -38,13 +38,28 @@ else()
     set(MERIDIAN_EVENT_LOOP_SRC src/net/epoll_event_loop.cpp)
 endif()
 
+add_library(meridian_cluster
+    src/cluster/hash_ring.cpp
+    src/cluster/shard_router.cpp
+)
+target_include_directories(meridian_cluster PUBLIC src)
+target_link_libraries(meridian_cluster PUBLIC meridian_cache)
+
+add_library(meridian_leaderboard
+    src/leaderboard/leaderboard.cpp
+)
+target_include_directories(meridian_leaderboard PUBLIC src)
+
 add_library(meridian_net
     ${MERIDIAN_EVENT_LOOP_SRC}
     src/net/tcp_server.cpp
+    src/replication/replica_link.cpp
+    src/replication/wal.cpp
     src/server/command_handler.cpp
 )
 target_include_directories(meridian_net PUBLIC src)
-target_link_libraries(meridian_net PUBLIC meridian_cache)
+target_link_libraries(meridian_net PUBLIC meridian_cache meridian_cluster
+                                          meridian_leaderboard)
 
 add_executable(meridian_server src/server/main.cpp)
 target_link_libraries(meridian_server PRIVATE meridian_net)
@@ -69,3 +84,19 @@ add_test(NAME command_handler_test COMMAND command_handler_test)
 add_executable(tcp_server_test tests/tcp_server_test.cpp)
 target_link_libraries(tcp_server_test PRIVATE meridian_net)
 add_test(NAME tcp_server_test COMMAND tcp_server_test)
+
+add_executable(hash_ring_test tests/hash_ring_test.cpp)
+target_link_libraries(hash_ring_test PRIVATE meridian_cluster)
+add_test(NAME hash_ring_test COMMAND hash_ring_test)
+
+add_executable(shard_router_test tests/shard_router_test.cpp)
+target_link_libraries(shard_router_test PRIVATE meridian_net)
+add_test(NAME shard_router_test COMMAND shard_router_test)
+
+add_executable(leaderboard_test tests/leaderboard_test.cpp)
+target_link_libraries(leaderboard_test PRIVATE meridian_net)
+add_test(NAME leaderboard_test COMMAND leaderboard_test)
+
+add_executable(replication_test tests/replication_test.cpp)
+target_link_libraries(replication_test PRIVATE meridian_net)
+add_test(NAME replication_test COMMAND replication_test)

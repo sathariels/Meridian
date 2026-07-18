@@ -138,8 +138,21 @@ void TcpServer::handle_io(int fd, uint32_t events) {
             if (!line.empty() && line.back() == '\r') {
                 line.pop_back();  // be telnet-friendly: accept \r\n
             }
-            conn.outbuf += on_line_(line);
-            conn.outbuf += '\n';
+            std::string response = on_line_(fd, line);
+
+            // The handler may have called push(), and push() may have
+            // closed THIS connection on a write error — in which case
+            // `conn` is a dangling reference. Re-look-up before touching
+            // it again.
+            it = conns_.find(fd);
+            if (it == conns_.end()) {
+                return;
+            }
+            Connection& conn_now = it->second;
+            if (!response.empty()) {  // "" = deliberately silent
+                conn_now.outbuf += response;
+                conn_now.outbuf += '\n';
+            }
         }
     }
 
@@ -183,10 +196,26 @@ bool TcpServer::flush(int fd, Connection& conn) {
     return true;
 }
 
+void TcpServer::push(int client_id, const std::string& data) {
+    auto it = conns_.find(client_id);
+    if (it == conns_.end()) {
+        return;  // connection already gone; drop silently
+    }
+    it->second.outbuf += data;
+    flush(client_id, it->second);
+}
+
+void TcpServer::set_disconnect_handler(DisconnectHandler on_disconnect) {
+    on_disconnect_ = std::move(on_disconnect);
+}
+
 void TcpServer::close_connection(int fd) {
     loop_.remove_fd(fd);
     ::close(fd);
     conns_.erase(fd);
+    if (on_disconnect_) {
+        on_disconnect_(fd);
+    }
 }
 
 }  // namespace meridian

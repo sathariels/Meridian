@@ -32,7 +32,7 @@ struct TestServer {
 
     TestServer()
         : server(*loop, "127.0.0.1", /*port=*/0,
-                 [this](const std::string& line) {
+                 [this](int /*client_id*/, const std::string& line) {
                      return meridian::handle_command(cache, line);
                  }) {
         server.start();  // registers fds before the loop thread exists
