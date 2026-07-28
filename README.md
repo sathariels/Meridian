@@ -19,7 +19,7 @@ messages and [PITCH.md](PITCH.md).
 | 4 | Consistent hashing across region shards | done |
 | 5 | Skip-list leaderboard | done |
 | 6 | Write-ahead-log replication, crash recovery | done |
-| 7 | Learned eviction (GBT) benchmarked vs. LRU | next |
+| 7 | Learned eviction (GBT) benchmarked vs. LRU | done |
 | 8 | Linux/epoll build + Docker validation | planned |
 
 ## Architecture so far
