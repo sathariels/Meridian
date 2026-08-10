@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <cstdint>
 #include <functional>
 #include <string>
 
@@ -39,9 +40,10 @@ public:
     std::size_t replay(
         const std::function<void(const std::string&)>& apply) const;
 
-    // Entire log as raw bytes (newline-terminated lines) — the SYNC dump
-    // a new follower receives before live streaming starts.
-    std::string read_all() const;
+    // Snapshot the current byte boundary for a follower SYNC. The network
+    // layer streams exactly this prefix, so writes appended during the
+    // transfer are delivered once through the live stream instead.
+    std::uint64_t size_bytes() const;
 
     const std::string& path() const { return path_; }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -41,6 +42,7 @@ private:
     ApplyFn apply_;
     int fd_ = -1;
     std::string inbuf_;
+    std::size_t in_offset_ = 0;
 };
 
 }  // namespace meridian

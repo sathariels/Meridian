@@ -1,6 +1,7 @@
 #include "replication/wal.h"
 
 #include <fcntl.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #include <cassert>
@@ -94,14 +95,12 @@ std::size_t Wal::replay(
     return count;
 }
 
-std::string Wal::read_all() const {
-    std::ifstream in(path_, std::ios::binary);
-    if (!in) {
-        return {};
+std::uint64_t Wal::size_bytes() const {
+    struct stat info {};
+    if (::fstat(fd_, &info) != 0) {
+        throw std::runtime_error("wal: cannot stat " + path_);
     }
-    std::ostringstream ss;
-    ss << in.rdbuf();
-    return ss.str();
+    return static_cast<std::uint64_t>(info.st_size);
 }
 
 }  // namespace meridian

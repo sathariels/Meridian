@@ -84,12 +84,20 @@ void ReplicaLink::handle_readable() {
     }
 
     std::size_t newline;
-    while ((newline = inbuf_.find('\n')) != std::string::npos) {
-        std::string line = inbuf_.substr(0, newline);
-        inbuf_.erase(0, newline + 1);
+    while ((newline = inbuf_.find('\n', in_offset_)) !=
+           std::string::npos) {
+        std::string line = inbuf_.substr(in_offset_, newline - in_offset_);
+        in_offset_ = newline + 1;
         if (!line.empty()) {
             apply_(line);
         }
+    }
+    if (in_offset_ == inbuf_.size()) {
+        inbuf_.clear();
+        in_offset_ = 0;
+    } else if (in_offset_ >= 4096 && in_offset_ >= inbuf_.size() / 2) {
+        inbuf_.erase(0, in_offset_);
+        in_offset_ = 0;
     }
 }
 

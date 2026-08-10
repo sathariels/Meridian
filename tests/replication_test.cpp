@@ -246,6 +246,35 @@ void test_follower_catches_up_on_backlog() {
     std::remove(path.c_str());
 }
 
+void test_follower_streams_large_backlog_before_live_writes() {
+    std::string path = temp_wal_path("large_backlog");
+    std::remove(path.c_str());
+    TestNode leader(path);
+
+    // Cross several network chunks so SYNC cannot buffer the complete WAL
+    // in one string. The follower rebuilds these records from the snapshot.
+    constexpr int kRecords = 6000;
+    for (int i = 0; i < kRecords; ++i) {
+        leader.wal->append("SET history:" + std::to_string(i) +
+                           " 0 replicated-value");
+    }
+
+    TestNode follower("", leader.port());
+    // Queue a live write while history may still be draining. It must stay
+    // behind the snapshot rather than being interleaved with file bytes.
+    assert(request(leader.port(), "SET live 0 after-snapshot") == "OK");
+
+    assert(eventually(follower.port(), "GET history:0",
+                      "VALUE replicated-value", 5000));
+    assert(eventually(follower.port(), "GET history:3000",
+                      "VALUE replicated-value", 5000));
+    assert(eventually(follower.port(), "GET history:5999",
+                      "VALUE replicated-value", 5000));
+    assert(eventually(follower.port(), "GET live",
+                      "VALUE after-snapshot", 5000));
+    std::remove(path.c_str());
+}
+
 void test_follower_rejects_writes() {
     TestNode leader("");
     TestNode follower("", leader.port());
@@ -285,6 +314,7 @@ int main() {
     test_crash_recovery_end_to_end();
     test_follower_receives_live_stream();
     test_follower_catches_up_on_backlog();
+    test_follower_streams_large_backlog_before_live_writes();
     test_follower_rejects_writes();
     test_follower_own_wal_survives_its_crash();
 

@@ -218,9 +218,10 @@ std::string handle_client_command(ServerContext& ctx, int client_id,
         // Push order guarantees the replica sees history before any
         // mutation that happens after this moment.
         if (ctx.server != nullptr && ctx.wal != nullptr) {
-            std::string backlog = ctx.wal->read_all();
-            if (!backlog.empty()) {
-                ctx.server->push(client_id, backlog);
+            if (!ctx.server->push_file(client_id, ctx.wal->path(),
+                                       ctx.wal->size_bytes())) {
+                ctx.replicas.erase(client_id);
+                return "ERR sync failed";
             }
         }
         return "";  // silent: this connection is a one-way stream now
