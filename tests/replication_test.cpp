@@ -36,7 +36,7 @@ std::string temp_wal_path(const std::string& tag) {
 // A full in-process server node: cache, leaderboard, WAL, TCP endpoint,
 // its own event-loop thread. Optionally a follower of another node.
 struct TestNode {
-    meridian::ShardRouter router{{"na", "eu", "asia"}, 1024, 4};
+    meridian::ShardRouter router;
     meridian::Leaderboard leaderboard;
     meridian::ServerContext ctx{.router = router, .leaderboard = leaderboard};
     std::unique_ptr<meridian::Wal> wal;
@@ -47,7 +47,9 @@ struct TestNode {
     std::thread loop_thread;
     std::size_t recovered = 0;
 
-    TestNode(const std::string& wal_path, uint16_t leader_port = 0) {
+    TestNode(const std::string& wal_path, uint16_t leader_port = 0,
+             std::size_t capacity_per_shard = 1024)
+        : router({"na", "eu", "asia"}, capacity_per_shard, 4) {
         if (!wal_path.empty()) {
             wal = std::make_unique<meridian::Wal>(wal_path);
             ctx.wal = wal.get();
@@ -254,12 +256,13 @@ void test_follower_streams_large_backlog_before_live_writes() {
     // Cross several network chunks so SYNC cannot buffer the complete WAL
     // in one string. The follower rebuilds these records from the snapshot.
     constexpr int kRecords = 6000;
+    constexpr std::size_t kCapacityPerShard = kRecords + 1;
     for (int i = 0; i < kRecords; ++i) {
         leader.wal->append("SET history:" + std::to_string(i) +
                            " 0 replicated-value");
     }
 
-    TestNode follower("", leader.port());
+    TestNode follower("", leader.port(), kCapacityPerShard);
     // Queue a live write while history may still be draining. It must stay
     // behind the snapshot rather than being interleaved with file bytes.
     assert(request(leader.port(), "SET live 0 after-snapshot") == "OK");
