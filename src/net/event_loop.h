@@ -16,7 +16,7 @@ struct IoEvent {
 
 // Readiness-notification event loop ("tell me when this fd is
 // readable/writable, then I'll do the read myself"). kqueue on macOS,
-// epoll on Linux (phase 8) — same interface, chosen at build time.
+// epoll on Linux — same interface, chosen at build time.
 //
 // Threading model: single-threaded. All methods except stop() must be
 // called from the loop's own thread (or before run() starts). stop() is
@@ -42,7 +42,7 @@ public:
     virtual void run() = 0;
     virtual void stop() = 0;
 
-    // Builds the platform's implementation (kqueue here).
+    // Builds the platform implementation selected at compile time.
     static std::unique_ptr<EventLoop> create();
 };
 

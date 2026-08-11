@@ -1,5 +1,5 @@
-// kqueue implementation of EventLoop (macOS/BSD). The Linux twin
-// (epoll_event_loop.cpp) arrives in phase 8; CMake picks one per platform.
+// kqueue implementation of EventLoop (macOS/BSD). CMake selects this or
+// the Linux epoll backend at configure time.
 
 #include "net/event_loop.h"
 
@@ -32,6 +32,7 @@ public:
         int rc = pipe(wake_pipe_);
         assert(rc == 0);
         fcntl(wake_pipe_[0], F_SETFL, O_NONBLOCK);
+        fcntl(wake_pipe_[1], F_SETFL, O_NONBLOCK);
 
         struct kevent ev;
         EV_SET(&ev, wake_pipe_[0], EVFILT_READ, EV_ADD, 0, 0, nullptr);

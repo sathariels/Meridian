@@ -116,6 +116,8 @@ Status: complete (2026-08-11).
 - Add CMake presets for Debug, Release, ASan/UBSan, and TSan.
 - Add Linux CI that builds and runs CTest.
 
+Status: implemented; awaiting the first Linux CI run.
+
 ### Phase 2: Networking Boundaries
 
 - Separate byte-oriented TCP transport from protocol framing.

@@ -22,7 +22,7 @@ scope.
 | Consistent hashing and skip-list leaderboard | done |
 | WAL recovery and leader/follower replication | done |
 | Meridian v1 scope and baseline | done |
-| Linux/epoll build and CI | next |
+| Linux/epoll build and CI | implemented; first CI run pending |
 | HTTP/JSON API, durable TTLs, and snapshots | planned |
 | Metrics, health, Docker, and final validation | planned |
 
@@ -58,7 +58,7 @@ client ──TCP──▶ event loop (kqueue) ──▶ command handler ──�
   here: every read moves an entry in the recency list, so reads are
   writes. Striping is what scales.
 - **TcpServer / EventLoop** — non-blocking sockets behind a readiness
-  loop (kqueue on macOS; epoll is the next Linux milestone). Handles
+  loop (kqueue on macOS, epoll on Linux). Handles
   pipelined commands, commands split across packets, backpressure, and
   TCP half-close.
 - **HashRing / ShardRouter** — consistent hashing with 128 virtual nodes
@@ -99,23 +99,25 @@ Reproduce the throughput workload with
 
 ## Build & test
 
-At the current baseline, the complete server build is supported on macOS.
-Linux support and authoritative CI are the next roadmap phase; the cache-only
-targets remain portable independently of the socket backend.
+Configure, build, and test the Debug preset on macOS or Linux:
 
 ```sh
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake --preset debug
+cmake --build --preset debug
+ctest --preset debug
 ```
 
-Sanitizer build (recommended after touching anything concurrent):
+Release, Address/Undefined Behavior Sanitizer, and ThreadSanitizer presets are
+also available:
 
 ```sh
-cmake -S . -B build-tsan -DMERIDIAN_SANITIZE=thread
-cmake --build build-tsan
-./build-tsan/striped_cache_test && ./build-tsan/tcp_server_test
+cmake --preset release && cmake --build --preset release
+cmake --preset asan && cmake --build --preset asan && ctest --preset asan
+cmake --preset tsan && cmake --build --preset tsan && ctest --preset tsan
 ```
+
+GitHub Actions runs Debug, ASan/UBSan, and TSan tests on Linux and separately
+checks that the Release configuration builds.
 
 ## Run it
 
@@ -177,7 +179,7 @@ src/cache/       KvStore interface, LruCache, StripedCache
 src/cluster/     HashRing, ShardRouter
 src/common/      hash utilities (FNV-1a, splitmix64)
 src/leaderboard/ skip-list Leaderboard
-src/net/         EventLoop interface, kqueue impl, TcpServer
+src/net/         EventLoop interface, kqueue/epoll backends, TcpServer
 src/replication/ Wal (append-only log), ReplicaLink (follower side)
 src/server/      protocol parsing, meridian_server main
 bench/           load generator

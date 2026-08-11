@@ -15,8 +15,12 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 #   cmake -S . -B build-tsan -DMERIDIAN_SANITIZE=thread
 # ThreadSanitizer is the tool that actually proves the striping is race-free;
 # the hammer test alone can pass by luck.
-set(MERIDIAN_SANITIZE "" CACHE STRING "Sanitizer: thread, address, or empty")
+set(MERIDIAN_SANITIZE "" CACHE STRING
+    "Sanitizers accepted by -fsanitize, for example thread or address,undefined")
 if(MERIDIAN_SANITIZE)
+    if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+        message(FATAL_ERROR "MERIDIAN_SANITIZE requires Clang or GCC")
+    endif()
     add_compile_options(-fsanitize=${MERIDIAN_SANITIZE} -g -fno-omit-frame-pointer)
     add_link_options(-fsanitize=${MERIDIAN_SANITIZE})
 endif()
@@ -33,9 +37,10 @@ target_link_libraries(meridian_cache PUBLIC Threads::Threads)
 # Event loop backend is chosen per platform behind the same interface.
 if(APPLE)
     set(MERIDIAN_EVENT_LOOP_SRC src/net/kqueue_event_loop.cpp)
-else()
-    # epoll_event_loop.cpp lands in phase 8 (Linux/Docker validation).
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     set(MERIDIAN_EVENT_LOOP_SRC src/net/epoll_event_loop.cpp)
+else()
+    message(FATAL_ERROR "Meridian currently supports macOS and Linux")
 endif()
 
 add_library(meridian_cluster
@@ -84,6 +89,10 @@ add_test(NAME command_handler_test COMMAND command_handler_test)
 add_executable(tcp_server_test tests/tcp_server_test.cpp)
 target_link_libraries(tcp_server_test PRIVATE meridian_net)
 add_test(NAME tcp_server_test COMMAND tcp_server_test)
+
+add_executable(event_loop_test tests/event_loop_test.cpp)
+target_link_libraries(event_loop_test PRIVATE meridian_net)
+add_test(NAME event_loop_test COMMAND event_loop_test)
 
 add_executable(hash_ring_test tests/hash_ring_test.cpp)
 target_link_libraries(hash_ring_test PRIVATE meridian_cluster)
