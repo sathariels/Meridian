@@ -15,17 +15,18 @@ using it live, because the follow-up question is always one level deeper.
 > and the system has to answer 'what's this player's rating' or 'who's
 > online' in under a millisecond. I wrote everything by hand — no
 > frameworks: the data structures, the thread-safe locking, and the TCP
-> networking layer with a kqueue event loop. It currently does 10 million
-> operations a second across 8 threads, and next up are region sharding, a
-> leaderboard, crash recovery, and a machine-learning-based eviction policy
-> that I'll benchmark against standard LRU."
+> networking layer with a kqueue event loop. The in-process cache reaches
+> 10 million operations a second across 8 threads. It also has consistent
+> hashing, a skip-list leaderboard, append-only crash recovery, and live
+> leader-to-follower replication. I'm finishing it with a small HTTP API,
+> atomic snapshots, metrics, and a reproducible Linux container."
 
 Keywords doing the work: **C++, systems programming, concurrency, from
-scratch, benchmarked, machine learning.**
+scratch, persistence, replication, benchmarked.**
 
 ## The 2-minute version (engineer / interview)
 
-Structure: problem → three layers → what's next.
+Structure: problem → four layers → finish line.
 
 > "The problem: a live-service game needs player state — rating, session,
 > leaderboard — readable in microseconds, and a database can't do that at
@@ -55,10 +56,17 @@ Structure: problem → three layers → what's next.
 > half-close, where netcat says 'done talking' but is still listening — my
 > integration tests caught both.
 >
-> Next phases: consistent hashing across region shards, a skip-list
-> leaderboard, write-ahead-log replication for crash recovery, and the
-> capstone — training a small gradient-boosted model to make eviction
-> decisions and benchmarking it against plain LRU."
+> **Layer 4 is state and recovery**: consistent hashing routes keys across
+> regional shards, a span-annotated skip list answers leaderboard rank in
+> O(log n), and every successful mutation is written to a human-readable
+> append-only log. A follower receives the log backlog and then live writes,
+> while restart recovery replays the same commands through the normal apply
+> path.
+>
+> The finish line is deliberately narrow: Linux support, HTTP and JSON,
+> atomic snapshots, operational metrics, Docker, and final integration
+> benchmarks. After that I will freeze the project instead of continually
+> adding unrelated features."
 
 ## Back-pocket answers
 
@@ -73,11 +81,15 @@ Structure: problem → three layers → what's next.
   threads (the cache is already thread-safe for it), a binary protocol
   instead of text, real cluster membership instead of the simplified
   leader-follower design.
+- **"Why no learned eviction?"** — "It was an early capstone idea, but it
+  would widen the project without completing its operational story. I chose
+  an honest, tested LRU baseline and a clear v1 finish line instead."
 
 ## Numbers to memorize
 
 - O(1) get / put / evict
-- 840K → 5.3M → 10.3M ops/sec (1 → 16 → 64 stripes, 8 threads, 4M ops)
+- 838K → 5.3M → 10.3M in-process ops/sec
+  (1 → 16 → 64 stripes, 8 threads, 4M ops)
 - Hit rate 92.4%, unchanged by striping — per-stripe LRU costs nothing
   measurable
 - A thread costs ~512KB of stack; an idle connection in the event loop

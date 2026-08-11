@@ -4,23 +4,31 @@ An in-memory cache server built from scratch in C++20, modeled on the
 backend of a live-service game (think Dota 2's matchmaking): player MMR,
 live session state, and leaderboards under heavy concurrent load.
 
-No frameworks. The data structures, locking, and networking are all
-hand-written — the point of the project is being able to defend every
+No networking framework. The data structures, locking, and socket event loop
+are hand-written — the point of the project is being able to defend every
 design decision, not shipping fast. Design rationale lives in the commit
 messages and [PITCH.md](PITCH.md).
 
+The remaining work and the point at which the project freezes are defined in
+[ROADMAP.md](ROADMAP.md). That document is the authoritative Meridian v1
+scope.
+
 ## Status
 
-| Phase | What | Status |
-|-------|------|--------|
-| 1 | Core LRU+TTL cache, O(1) operations | done |
-| 2 | Lock-striped concurrency + load generator | done |
-| 3 | TCP server, kqueue event loop, text protocol | done |
-| 4 | Consistent hashing across region shards | done |
-| 5 | Skip-list leaderboard | done |
-| 6 | Write-ahead-log replication, crash recovery | done |
-| 7 | Learned eviction (GBT) benchmarked vs. LRU | done |
-| 8 | Linux/epoll build + Docker validation | planned |
+| Area | Status |
+|------|--------|
+| Core LRU+TTL cache and lock-striped concurrency | done |
+| TCP/kqueue server and text protocol | done |
+| Consistent hashing and skip-list leaderboard | done |
+| WAL recovery and leader/follower replication | done |
+| Meridian v1 scope and baseline | done |
+| Linux/epoll build and CI | next |
+| HTTP/JSON API, durable TTLs, and snapshots | planned |
+| Metrics, health, Docker, and final validation | planned |
+
+Learned eviction was listed as complete in an earlier status table, but no
+implementation or benchmark artifacts exist in this repository. It is deferred
+outside Meridian v1 rather than being represented as shipped work.
 
 ## Architecture so far
 
@@ -50,7 +58,7 @@ client ──TCP──▶ event loop (kqueue) ──▶ command handler ──�
   here: every read moves an entry in the recency list, so reads are
   writes. Striping is what scales.
 - **TcpServer / EventLoop** — non-blocking sockets behind a readiness
-  loop (kqueue on macOS; epoll planned for Linux in phase 8). Handles
+  loop (kqueue on macOS; epoll is the next Linux milestone). Handles
   pipelined commands, commands split across packets, backpressure, and
   TCP half-close.
 - **HashRing / ShardRouter** — consistent hashing with 128 virtual nodes
@@ -73,7 +81,9 @@ client ──TCP──▶ event loop (kqueue) ──▶ command handler ──�
   Tested with real kill-and-rebuild cycles, including a torn-tail crash
   simulation. No consensus/failover by design — see CLAUDE.md non-goals.
 
-## Numbers (Apple M3, 8 cores, 8 threads, 4M ops, hot-key workload)
+## Baseline Numbers
+
+Apple M3, 8 cores, 8 threads, 4M operations, in-process hot-key workload:
 
 | Stripes | Throughput | Hit rate |
 |---------|-----------|----------|
@@ -81,10 +91,17 @@ client ──TCP──▶ event loop (kqueue) ──▶ command handler ──�
 | 16 | 5.3M ops/sec | 92.39% |
 | 64 | 10.3M ops/sec | 92.39% |
 
-Concurrency is verified with ThreadSanitizer, not just tests that happened
-to pass. Reproduce with `./build-release/load_gen --threads 8 --stripes N`.
+These numbers measure cache operations directly, not TCP or future HTTP
+throughput. The baseline contains eight test executables with 52 named test
+functions. Concurrency has previously been checked with ThreadSanitizer.
+Reproduce the throughput workload with
+`./build-release/load_gen --threads 8 --stripes N`.
 
 ## Build & test
+
+At the current baseline, the complete server build is supported on macOS.
+Linux support and authoritative CI are the next roadmap phase; the cache-only
+targets remain portable independently of the socket backend.
 
 ```sh
 cmake -S . -B build
@@ -166,4 +183,5 @@ src/server/      protocol parsing, meridian_server main
 bench/           load generator
 tests/           one suite per component; tcp_server_test is a real
                  socket-level integration test
+ROADMAP.md        authoritative Meridian v1 scope and freeze criteria
 ```
