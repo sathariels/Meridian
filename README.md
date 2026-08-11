@@ -22,7 +22,7 @@ scope.
 | Consistent hashing and skip-list leaderboard | done |
 | WAL recovery and leader/follower replication | done |
 | Meridian v1 scope and baseline | done |
-| Linux/epoll build and CI | implemented; first CI run pending |
+| Linux/epoll build and CI | done |
 | HTTP/JSON API, durable TTLs, and snapshots | planned |
 | Metrics, health, Docker, and final validation | planned |
 
